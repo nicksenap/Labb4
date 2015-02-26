@@ -9,7 +9,8 @@ public class CalculateServer {
         } catch (Exception e) {
             e.printStackTrace();
             System.out.println("Server error！");
-        }}
+        }
+    }
 
         //switch string to float.
         public float[] convertToArray(String inputString){
