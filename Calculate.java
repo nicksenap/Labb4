@@ -20,15 +20,14 @@ public class Calculate {
 
     }
 
-
-    // Calulate between 2.
+    // Calculate between two Integer and one operator.
     public static String twoResult(String operator, String a, String b) {
         try {
             String op = operator;
             String rs = new String();
             double x = Double.parseDouble(b);
             double y = Double.parseDouble(a);
-            double z = 0;
+            double z ;
             if (op.equals("+"))
                 z = x + y;
 
