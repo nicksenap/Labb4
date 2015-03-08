@@ -8,7 +8,6 @@ public class Expression {
     private String ex = ""; 
 
 
-
     Expression(String input) {
         StringTokenizer st = new StringTokenizer(input, "+-*/()", true);
         while (st.hasMoreElements()) {
@@ -91,7 +90,12 @@ public class Expression {
 
 
 
-    public static void main(String avg[]) {
+    public static void main(String[] args) {
+        if (args.length > 0){
+            Expression boya = new Expression(args[0]);
+            System.out.println(boya.getResult());
+            System.exit(1);
+        }
         try {
             System.out.println("Input a expression:");
             BufferedReader is = new BufferedReader(new InputStreamReader(System.in));
