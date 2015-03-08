@@ -2,13 +2,13 @@ import java.util.*;
 import java.io.*;
 
 public class Expression {
-    private ArrayList expression = new ArrayList();// 存储中序表达式
-    private ArrayList right = new ArrayList();// 存储右序表达式
-    private String result;// 结果
-    private String ex = ""; //
+    private ArrayList expression = new ArrayList();
+    private ArrayList right = new ArrayList();
+    private String result; 
+    private String ex = ""; 
 
 
-    // 依据输入信息创建对象，将数值与操作符放入ArrayList中
+
     Expression(String input) {
         StringTokenizer st = new StringTokenizer(input, "+-*/()", true);
         while (st.hasMoreElements()) {
@@ -16,7 +16,7 @@ public class Expression {
             }
         }
 
-    // 将中序表达式转换为右序表达式
+ 
     private void toRight() {
         Stacks aStack = new Stacks();
         String operator;

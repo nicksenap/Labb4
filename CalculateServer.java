@@ -1,5 +1,6 @@
 import java.io.*;
 import java.net.*;
+import java.util.regex.*;
 
 public class CalculateServer {
     public static void main(String [] args){
@@ -9,8 +10,7 @@ public class CalculateServer {
         } catch (Exception e) {
             e.printStackTrace();
             System.out.println("Server error！");
-        }
-    }
+        }}
 
         //switch string to float.
         public float[] convertToArray(String inputString){
@@ -48,6 +48,7 @@ public class CalculateServer {
             }
             boolean flag = true;
             CalculateServer cs = new CalculateServer();
+	    Pattern p = Pattern.compile("(.*([a-zA-Z]+).*)+");
             try {
                 while (flag) {
                     String inputString = in.readLine();
@@ -56,10 +57,16 @@ public class CalculateServer {
                         flag = false;
                         continue;
                     }
-                    if (inputString == null /*|| inputString.length() < 5*/) {
+		    
+  		    Matcher m = p.matcher(inputString);
+		    if (m.matches()) {
+			 out.println("Wrong ！");
+			 continue;
+		    }
+
+                    if (inputString == null) {
                         out.println("Wrong ！");
                     } else {
-                        //out.println(cs.getResultString(cs.convertToArray(inputString)));
                         exp = new Expression(inputString);
                         out.println(exp.getResult());
                     }
