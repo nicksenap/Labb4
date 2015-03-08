@@ -16,7 +16,7 @@ public class CalculateClient {
             try {
                 calculateClient.startClient(args[0],args[1]);
             } catch (Exception e){
-            }
+                }
         }
         try {
             calculateClient.startClient();
@@ -26,13 +26,13 @@ public class CalculateClient {
     }
     //Start Client with interactive "user interface".
     public void startClient () throws Exception{
-        Socket socketObj=new Socket("localhost",DEFAULT_SERVER_PORT);
+        Socket socketObj=new Socket("localhost", DEFAULT_SERVER_PORT);
         out=new PrintStream(socketObj.getOutputStream());
         in=new BufferedReader(new InputStreamReader(socketObj.getInputStream()));
         localInput=new BufferedReader(new InputStreamReader(System.in));
         boolean flag=true;
         while (flag) {
-            System.out.println("Enter numbers,t.ex 1+2+3+4 or Bye for quit:");
+            System.out.println("Enter numbers,t.ex 1+2+3+4 or bye for quit:");
             String inputString = localInput.readLine();
             out.println(inputString);
             if(inputString.equals("bye")){

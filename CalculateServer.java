@@ -10,26 +10,12 @@ public class CalculateServer {
         } catch (Exception e) {
             e.printStackTrace();
             System.out.println("Server error！");
-        }}
-
-        //switch string to float.
-        public float[] convertToArray(String inputString){
-            String numberString=inputString.substring(inputString.indexOf('[')+1,inputString.indexOf(']'));
-            String [] stringArray=numberString.split(",");
-            float [] numberArray=new float[2];
-            for(int i=0;i<2;i++){
-                try {
-                    numberArray[i]=Float.parseFloat(stringArray[i]);
-                }catch (NumberFormatException e){
-                    System.out.println("Numbers error！");
-                    return null;
-                }
-            }
-            return  numberArray;
         }
+    }
+
 
     //socketServer
-    public void startServer() throws Exception,NullPointerException {
+    public void startServer() throws Exception{
         ServerSocket serverSocket = null;
         PrintStream out = null;
         BufferedReader in = null;
@@ -48,9 +34,6 @@ public class CalculateServer {
                 System.out.println("Server starts fail！");
             }
             boolean flag = true;
-            CalculateServer cs = new CalculateServer();
-
-
 
             Pattern p = Pattern.compile("(.*([a-zA-Z]+).*)+");
             try {
