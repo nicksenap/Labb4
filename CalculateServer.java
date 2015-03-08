@@ -36,6 +36,7 @@ public class CalculateServer {
         Socket socketObj = null;
         Expression exp;
 
+
         try {
             serverSocket = new ServerSocket(1888);
             System.out.println("Server is running...");
@@ -48,7 +49,10 @@ public class CalculateServer {
             }
             boolean flag = true;
             CalculateServer cs = new CalculateServer();
-	    Pattern p = Pattern.compile("(.*([a-zA-Z]+).*)+");
+
+
+
+            Pattern p = Pattern.compile("(.*([a-zA-Z]+).*)+");
             try {
                 while (flag) {
                     String inputString = in.readLine();
@@ -76,10 +80,14 @@ public class CalculateServer {
                 out.println("Server close.");
 
             } finally {
+                try {
                 out.close();
                 in.close();
                 socketObj.close();
                 serverSocket.close();
+                }catch (NullPointerException e){
+                    System.exit(1);
+                }
 
             }
 
