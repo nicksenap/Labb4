@@ -20,7 +20,7 @@ public class Calculate {
 
     }
 
-    // Calculate between two Integer and one operator.
+    // Compute with two Integer(or double maybe :)) and one operator.
     public static String twoResult(String operator, String a, String b) {
         try {
             String op = operator;
