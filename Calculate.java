@@ -11,7 +11,7 @@ public class Calculate {
     // Set priority.
     public static int priority(String operator) {
         if (operator.equals("+") || operator.equals("-")
-                || operator.equals("("))
+                                 || operator.equals("("))
             return 1;
         else if (operator.equals("*") || operator.equals("/"))
             return 2;
