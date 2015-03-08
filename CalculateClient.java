@@ -5,7 +5,7 @@ public class CalculateClient {
 
     final public static int DEFAULT_SERVER_PORT = 1888;
 
-    PrintStream out=null;
+    PrintStream    out=null;
     BufferedReader in=null;
     BufferedReader localInput=null;
 

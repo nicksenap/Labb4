@@ -2,12 +2,12 @@ import java.util.*;
 import java.io.*;
 
 public class Expression {
-    private ArrayList expression = new ArrayList();
-    private ArrayList right = new ArrayList();
-    private String result; 
-    private String ex = ""; 
+    private ArrayList expression = new ArrayList(); //The original math expression
+    private ArrayList right = new ArrayList();      //A arraylist with order like "Operator-num1-num2"
+    private String result;                          //The result to return
+    private String ex = "";                         //The original math expression to return.
 
-
+    //Use Tokenizer to get all the math expressions.
     Expression(String input) {
         StringTokenizer st = new StringTokenizer(input, "+-*/()", true);
         while (st.hasMoreElements()) {
@@ -15,59 +15,63 @@ public class Expression {
             }
         }
 
- 
+    //Sort the math expression to "right order".
     private void toRight() {
-        Stacks aStack = new Stacks();
-        String operator;
-        int position = 0;
+        Stacks aStack = new Stacks();   //A stack for the things in between.
+        String operator;                //Operator is stand for represent the content inside bracket---between "(" and ")".
+        int position = 0;               //The start position.
         while (true) {
             if (Calculate.isOperator((String) expression.get(position))) {
 
-                if (aStack.top == -1 || (expression.get(position)).equals("(")) {
-                    aStack.push(expression.get(position));
+                if (aStack.top == -1 || (expression.get(position)).equals("(")) {  //When we find a bracket("operator" in my word),
+                    aStack.push(expression.get(position));                         //We push the content to the Stack.
 
-                } else {
+                } else {                                                            //Or if here is not the start of bracket.
 
-                    if ((expression.get(position)).equals(")")) {
+                    if ((expression.get(position)).equals(")")) {                   //If it is the end of bracket, and the top of stack is not "(",
 
-                        if (!(aStack.top()).equals("(")) {
-                            operator = (String) aStack.pop();
-                            right.add(operator);
+                        if (!(aStack.top()).equals("(")) {        //otherwise it will be a "()" without any contents.
+                            operator = (String) aStack.pop();     //Pack it.
+                            right.add(operator);                  //Add to "right".
                         }
 
                     } else {
-
-                        if (Calculate.priority((String) expression
-                                .get(position)) <= Calculate.priority((String) aStack.top())
+                            //If priority of the item in this very position is higher than the item in the top of stack,
+                        if (Calculate.priority((String) expression.get(position)) <= Calculate.priority((String) aStack.top())
                                     && aStack.top != -1) {
+                            //Pop the item to operator.
                             operator = (String) aStack.pop();
 
                             if (!operator.equals("("))
+                                //if this is not a new start for a bracket, add the item to "right".
                                 right.add(operator);
                         }
                         aStack.push(expression.get(position));
                     }
                 }
             } else
-                right.add(expression.get(position));
+                right.add(expression.get(position)); //Just add a item to right.
                 position++;
-            if (position >= expression.size())
+            if (position >= expression.size()) //Break when we touch the edge.
                 break;
         }
 
-        while (aStack.top != -1) {
+        while (aStack.top != -1) {    //Add the rest of items to "right", make sure stack is empty.
             operator = (String) aStack.pop();
             right.add(operator);
         }
     }
-     // 对右序表达式进行求值
 
+
+    //Method to compute the result in the "right order".
     String getResult() {
 
         this.toRight();
+
         Stacks aStack = new Stacks();
         String op1, op2, is;
         Iterator it = right.iterator();
+
         while (it.hasNext()) {
             is = (String) it.next();
             if (Calculate.isOperator(is)) {
@@ -90,7 +94,7 @@ public class Expression {
     }
 
 
-    //The main method for test.
+    //The main method ,just for test.
     public static void main(String[] args) {
         if (args.length > 0){
             Expression boya = new Expression(args[0]);

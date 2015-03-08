@@ -35,19 +35,19 @@ public class CalculateServer {
             }
             boolean flag = true;
 
-            Pattern p = Pattern.compile("(.*([a-zA-Z]+).*)+");
+            Pattern p = Pattern.compile("(.*([a-zA-Z]+).*)+");   //To deal with the bad inputs.
             try {
                 while (flag) {
                     String inputString = in.readLine();
                     System.out.println("Received:" + inputString);
-                    if (inputString.equals("bye")) {
+                    if (inputString.equals("bye")) {             //To break the program.
                         flag = false;
                         continue;
                     }
 		    
   		    Matcher m = p.matcher(inputString);
 		    if (m.matches()) {
-			 out.println("Wrong ！");
+			 out.println("Bad input！");                          //To deal with the bad inputs.
 			 continue;
 		    }
 
