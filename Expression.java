@@ -49,7 +49,7 @@ public class Expression {
                 }
             } else
                 right.add(expression.get(position));
-            position++;
+                position++;
             if (position >= expression.size())
                 break;
         }
@@ -65,7 +65,7 @@ public class Expression {
 
         this.toRight();
         Stacks aStack = new Stacks();
-        String op1, op2, is = null;
+        String op1, op2, is;
         Iterator it = right.iterator();
         while (it.hasNext()) {
             is = (String) it.next();
