@@ -23,7 +23,7 @@ public class Expression {
         int position = 0;
         while (true) {
             if (Calculate.isOperator((String) expression.get(position))) {
-                if (aStack.top == -1 ||(expression.get(position)).equals("(")) {
+                if (aStack.top == -1 || (expression.get(position)).equals("(")) {
                     aStack.push(expression.get(position));
 
                 } else {

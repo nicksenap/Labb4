@@ -21,7 +21,6 @@ public class Calculate {
     }
 
 
-
     // Calulate between 2.
     public static String twoResult(String operator, String a, String b) {
         try {
