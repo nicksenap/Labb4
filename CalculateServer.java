@@ -1,8 +1,13 @@
 import java.io.*;
 import java.net.*;
+import java.util.ArrayList;
+import java.util.NoSuchElementException;
 import java.util.regex.*;
 
 public class CalculateServer {
+    final public static int DEFAULT_SERVER_PORT = 1888;
+    ArrayList<String> history= new ArrayList<String>();
+
     public static void main(String [] args){
         CalculateServer calculateServer=new CalculateServer();
         try {
@@ -24,7 +29,7 @@ public class CalculateServer {
 
 
         try {
-            serverSocket = new ServerSocket(1888);
+            serverSocket = new ServerSocket(DEFAULT_SERVER_PORT);
             System.out.println("Server is running...");
             socketObj = serverSocket.accept();
             out = new PrintStream(socketObj.getOutputStream());
@@ -40,6 +45,7 @@ public class CalculateServer {
                 while (flag) {
                     String inputString = in.readLine();
                     System.out.println("Received:" + inputString);
+                    history.add(inputString);
                     if (inputString.equals("bye")) {             //To break the program.
                         flag = false;
                         continue;
@@ -50,24 +56,26 @@ public class CalculateServer {
 			 out.println("Bad input！");                          //To deal with the bad inputs.
 			 continue;
 		    }
-
                     if (inputString == null) {
-                        out.println("Wrong ！");
+                        out.println("Empty input");
                     } else {
                         exp = new Expression(inputString);
                         out.println(exp.getResult());
                     }
                 }
-            } catch (Exception e) {
-                out.println("Wrong！");
-                out.println("Server close.");
+            } catch (NoSuchElementException e) {
+                out.println("Bad input(NoSuchElement).");
 
             } finally {
                 try {
-                out.close();
-                in.close();
-                socketObj.close();
-                serverSocket.close();
+                    out.close();
+                    in.close();
+                    socketObj.close();
+                    serverSocket.close();
+                    System.out.println("Here shows you the history in"+ " "+DEFAULT_SERVER_PORT+" "+": ");
+                    for (int i = 0;i<history.size();i++){
+                        System.out.print(i + 1 + ":" + history.get(i) + "||");}
+
                 }catch (NullPointerException e){
                     System.exit(1);
                 }

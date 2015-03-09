@@ -36,6 +36,7 @@ public class CalculateClient {
             String inputString = localInput.readLine();
             out.println(inputString);
             if(inputString.equals("bye")){
+                System.out.println("See you next time!");
                 flag=false;
             }else{
                 String input=in.readLine();

@@ -6,6 +6,7 @@ public class Expression {
     private ArrayList right = new ArrayList();      //A arraylist with order like "Operator-num1-num2"
     private String result;                          //The result to return
     private String ex = "";                         //The original math expression to return.
+    private int cost = 0;
 
     //Use Tokenizer to get all the math expressions.
     Expression(String input) {
@@ -30,35 +31,39 @@ public class Expression {
 
                     if ((expression.get(position)).equals(")")) {                   //If it is the end of bracket, and the top of stack is not "(",
 
-                        if (!(aStack.top()).equals("(")) {        //otherwise it will be a "()" without any contents.
+                        if (!(aStack.top()).equals("(")) {        //In case it will be a "()" without any contents.
                             operator = (String) aStack.pop();     //Pack it.
+                            cost +=1;
                             right.add(operator);                  //Add to "right".
                         }
 
                     } else {
                             //If priority of the item in this very position is higher than the item in the top of stack,
                         if (Calculate.priority((String) expression.get(position)) <= Calculate.priority((String) aStack.top())
-                                    && aStack.top != -1) {
+                                            && aStack.top != -1) {
                             //Pop the item to operator.
                             operator = (String) aStack.pop();
 
                             if (!operator.equals("("))
                                 //if this is not a new start for a bracket, add the item to "right".
                                 right.add(operator);
+                                cost+=1;
                         }
                         aStack.push(expression.get(position));
                     }
                 }
             } else
-                right.add(expression.get(position)); //Just add a item to right.
-                position++;
-            if (position >= expression.size()) //Break when we touch the edge.
+                right.add(expression.get(position)); //If,the item is not a Operator, just add a item to right
+                position++;                          //and move to the next.
+
+            if (position >= expression.size())       //Break it when we touch the edge.
                 break;
         }
 
-        while (aStack.top != -1) {    //Add the rest of items to "right", make sure stack is empty.
+        while (aStack.top != -1) {    //Add the rest of items to "right", make sure stack is empty and we haven't missed anything.
             operator = (String) aStack.pop();
             right.add(operator);
+            cost+=1;
         }
     }
 
@@ -89,7 +94,7 @@ public class Expression {
             ex = ex + it.next();
         }
 
-        return ex+ " = " +result;
+        return ex+ " = " +result +"|| cost: "+cost;
 
     }
 
